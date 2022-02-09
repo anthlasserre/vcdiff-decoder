@@ -55,8 +55,10 @@ const realtime = new Ably.Realtime({
 });
 
 const channel = realtime.channels.get('your-ably-channel', {
-    delta: 'vcdiff'
-})
+    params: {
+        delta: 'vcdiff'
+    }
+});
 
 channel.subscribe(msg => console.log("Received message: ", msg));
 ```
