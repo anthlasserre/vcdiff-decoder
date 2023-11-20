@@ -35,8 +35,8 @@
     "typings.d.ts"
   ],
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
     "babel-loader": "^8.1.0",
     "chai": "^3.5.0",
     "core-js": "^3.6.5",
