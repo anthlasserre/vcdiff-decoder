@@ -5,6 +5,7 @@
   "license": "Apache-2.0",
   "homepage": "https://ably.io/",
   "main": "lib/vcdiff_decoder.js",
+  "typings": "typings.d.ts",
   "scripts": {
     "grunt": "grunt",
     "test": "grunt test:all"
@@ -28,7 +29,8 @@
   },
   "files": [
     "lib",
-    "dist"
+    "dist",
+    "typings.d.ts"
   ],
   "devDependencies": {
     "@babel/core": "^7.9.0",
