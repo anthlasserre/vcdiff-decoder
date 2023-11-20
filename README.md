@@ -78,6 +78,8 @@ Returns a `Uint8Array`, the 'target', being the result of applying `delta` to `s
 
 ### Requirements
 
+#### Node.js
+
 The `vcdiff` dev dependency of this project, used for testing, fails to build against [Node.js 9](https://nodejs.org/download/release/latest-v9.x/) and newer.
 For this reason, until [#3](https://github.com/ably-forks/vcdiff-decoder/issues/3) has been addressed, the tests must be run against an environment with [Node.js 8](https://nodejs.org/download/release/latest-v8.x/) installed.
 
@@ -91,6 +93,16 @@ At the time of writing this means:
 For those who use
 [ASDF](https://github.com/asdf-vm/asdf)
 or compatible tooling to manage their Node.js runtime versions, we have included a
+[`.tool-versions`](.tool-versions)
+file.
+
+#### Python
+
+The version of `node-gyp` bundled with the above-mentioned version of NPM uses an API that was removed in Python 3.9, causing `npm install` to fail. So, you must use Python 3.8 or earlier.
+
+For those who use
+[ASDF](https://github.com/asdf-vm/asdf)
+or compatible tooling to manage their Python runtime versions, we have included a
 [`.tool-versions`](.tool-versions)
 file.
 
