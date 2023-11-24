@@ -124,7 +124,7 @@ module.exports = function (grunt) {
 			},
 			local: {
 				reporters: ['progress', 'mocha'],
-				browsers: ['Firefox'],
+				browsers: ['FirefoxHeadless'],
 			},
 			remote: {
 				browserStack: {
