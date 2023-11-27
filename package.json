@@ -4,7 +4,8 @@
   "description": "Pure JavaScript Vcdiff decoder that works with binary deltas from Google's open-vcdiff",
   "license": "Apache-2.0",
   "homepage": "https://ably.io/",
-  "main": "lib/vcdiff_decoder.js",
+  "main": "build/cjs/vcdiff-decoder.js",
+  "module": "lib/vcdiff_decoder.js",
   "typings": "typings.d.ts",
   "scripts": {
     "grunt": "grunt",
@@ -30,11 +31,12 @@
   "files": [
     "lib",
     "dist",
+    "build",
     "typings.d.ts"
   ],
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
     "babel-loader": "^8.1.0",
     "chai": "^3.5.0",
     "core-js": "^3.6.5",

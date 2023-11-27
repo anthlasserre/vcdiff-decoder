@@ -5,15 +5,17 @@ const fs = require('fs');
 const assert = require('chai').assert;
 const vcd = require('vcdiff');
 
-const vcdiffDecoder = require('../');
-const errors = require('../lib/errors');
-const VCDiff = require('../lib/vcdiff');
-const TypedArray = require('../lib/typed_array_util');
-const instructions = require('../lib/instructions');
-const deserializeInteger = require('../lib/deserialize/integer');
-const deserializeDelta = require('../lib/deserialize/delta');
-const NearCache = require('../lib/address_caches/near');
-const SameCache = require('../lib/address_caches/same');
+const {
+    vcdiffDecoder,
+    errors,
+    VCDiff,
+    TypedArray,
+    instructions,
+    deserializeInteger,
+    deserializeDelta,
+    NearCache,
+    SameCache,
+} = require('./build/node/with-internal-exports');
 
 describe('vcdiffDecoder', function() {
 

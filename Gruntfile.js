@@ -10,6 +10,18 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-mocha-test');
 	grunt.loadNpmTasks('grunt-karma');
 
+	function cdnWebpackTarget({ minify }) {
+		return {
+			entry: './lib/vcdiff_decoder.js',
+			output: {
+				path: path.resolve(__dirname, 'dist'),
+				library: 'vcdiffDecoder',
+				filename: minify ? 'vcdiff-decoder.min.js' : 'vcdiff-decoder.js'
+			},
+			mode: minify ? 'production' : 'none',	// Opts out of any default optimization options
+		}
+	}
+
 	grunt.initConfig({
 		bump: {
 			options: {
@@ -26,11 +38,6 @@ module.exports = function (grunt) {
 		},
 		webpack: {
 			options: {
-				entry: './lib/vcdiff_decoder.js',
-				output: {
-					path: path.resolve(__dirname, 'dist'),
-					library: 'vcdiffDecoder'
-				},
 				module: {
 					rules: [
 						{
@@ -57,17 +64,25 @@ module.exports = function (grunt) {
 					]
 				}
 			},
-			'vcdiff-decoder.js': {
-				mode: 'none',	// Opts out of any default optimization options
+			'cdn': cdnWebpackTarget({ minify: false }),
+			'cdn-min': cdnWebpackTarget({ minify: true }),
+			'cjs': {
+				entry: './lib/vcdiff_decoder.js',
 				output: {
+					path: path.resolve(__dirname, 'build', 'cjs'),
+					libraryTarget: 'commonjs',
 					filename: 'vcdiff-decoder.js'
-				}
+				},
+				mode: 'none',	// Opts out of any default optimization options
 			},
-			'vcdiff-decoder.min.js': {
-				mode: 'production',
+			'node-test-support': {
+				entry: './test/support/node/with-internal-exports.js',
 				output: {
-					filename: 'vcdiff-decoder.min.js'
-				}
+					path: path.resolve(__dirname, 'test', 'build', 'node'),
+					libraryTarget: 'commonjs',
+					filename: 'with-internal-exports.js'
+				},
+				mode: 'none',
 			}
 		},
 		karma: {
@@ -109,7 +124,7 @@ module.exports = function (grunt) {
 			},
 			local: {
 				reporters: ['progress', 'mocha'],
-				browsers: ['Firefox'],
+				browsers: ['FirefoxHeadless'],
 			},
 			remote: {
 				browserStack: {
@@ -148,13 +163,13 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.registerTask('build', 'webpack');
+	grunt.registerTask('build', ['webpack:cdn', 'webpack:cdn-min', 'webpack:cjs']);
 
 	grunt.registerTask('test:all', ['test', 'test:browser:remote']);
 
 	grunt.registerTask('test', ['test:node', 'test:browser:local']);
 
-	grunt.registerTask('test:node', 'mochaTest');
+	grunt.registerTask('test:node', ['webpack:node-test-support', 'mochaTest']);
 
 	grunt.registerTask('test:browser',
 		'Runs browser tests in given context. Run as "grunt test:browser:<context>", where <context> is "local" or "remote"',
@@ -240,7 +255,8 @@ module.exports = function (grunt) {
 			var generatedFiles = [
 				'package.json',
 				'dist/vcdiff-decoder.js',
-				'dist/vcdiff-decoder.min.js'
+				'dist/vcdiff-decoder.min.js',
+				'build/cjs/vcdiff-decoder.js',
 			];
 
 			var cmd = 'git add -A ' + generatedFiles.join(' ');
