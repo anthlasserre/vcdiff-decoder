@@ -20,6 +20,14 @@ and require as:
 const vcdiffPlugin = require('@ably/vcdiff-decoder');
 ```
 
+## Script include for React Native
+
+Include this library at the very top of your `index.js` file:
+
+```javascript
+import 'text-encoding-polyfill';
+```
+
 ## Script include for Web Browsers
 
 Include the library in your HTML from our CDN:
